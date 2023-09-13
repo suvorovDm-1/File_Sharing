@@ -1,4 +1,5 @@
 #include "funcs.h"
+#include "..\StaticLib\Header.h"
 #include <iostream>
 
 int main() {
@@ -7,7 +8,7 @@ int main() {
 
 	std::cin >> n >> l >> r;
 
-	float* a = create_a(n, l, r);
+	float* a = create_a_range(n, l, r);
 	print_a(n, a);
 
 	try {

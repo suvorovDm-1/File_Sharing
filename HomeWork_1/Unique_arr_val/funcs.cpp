@@ -1,22 +1,6 @@
 #include "funcs.h"
 #include <iostream>
 
-int* create_a(int n) {
-	int* a = new int[n];
-
-	for (int i = 0; i < n; i++)
-		std::cin >> a[i];
-
-	return a;
-}
-
-void print_a(int n, int* a) {
-	std::cout << "-------------------" << std::endl;
-	for (int i = 0; i < n; i++)
-		std::cout << a[i] << std::endl;
-	std::cout << "-------------------" << std::endl;
-}
-
 int count_unique(int n, int* a) {
 	int c_u = 0;
 

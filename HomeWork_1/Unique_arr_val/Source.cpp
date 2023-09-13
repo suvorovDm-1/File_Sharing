@@ -1,4 +1,5 @@
 #include "funcs.h"
+#include "..\StaticLib\Header.h"
 #include <iostream>
 
 int main() {
