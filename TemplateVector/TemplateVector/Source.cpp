@@ -16,12 +16,17 @@ int main() {
 	try {
 		std::cout << v1 + v2;
 		std::cout << v2 - v1;
-		/*std::cout << v2 - v3; */// error
+		std::cout << v2 - v3;
+	}
+	catch (const char* exp) {
+		std::cout << "\n" << exp << "\n";
+	}
 
+	try {
 		std::cout << v1 * v2 << "\n";
 		v3 = v1 + v2;
 		std::cout << v2 - v3;
-		
+
 		bool res = ((v1 + v2) == v3);
 		std::cout << res << "\n";
 

@@ -2,6 +2,7 @@
 #define _HEADER_H
 
 #include <iostream>
+#include <cmath>
 
 template <typename T>
 class Vect_t {
@@ -16,7 +17,7 @@ public:
 
 	Vect_t<T> operator+ (const Vect_t<T>& v) const;
 	Vect_t<T> operator- (const Vect_t<T>& v) const;
-	T operator* (const Vect_t<T>& v) const;
+	double operator* (const Vect_t<T>& v) const;
 
 	const Vect_t<T>& operator= (const Vect_t<T>& v);
 
@@ -99,7 +100,7 @@ Vect_t<T> Vect_t<T>::operator- (const Vect_t<T>& v) const {
 }
 
 template <typename T>
-T Vect_t<T>::operator* (const Vect_t<T>& v) const {
+double Vect_t<T>::operator* (const Vect_t<T>& v) const {
 	if (size != v.size) {
 		throw "Different sizes!";
 	}
@@ -151,7 +152,7 @@ bool Vect_t<T>::operator!= (const Vect_t<T>& v) const {
 
 template <typename T>
 double  Vect_t<T>::len() const {
-	return (*this) * (*this);
+	return sqrt((*this) * (*this));
 }
 
 #endif

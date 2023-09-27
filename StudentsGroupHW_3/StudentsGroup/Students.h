@@ -8,7 +8,6 @@ struct Data_t {
 	int month;
 	int year;
 
-	bool operator!= (const Data_t& st) const;
 	friend std::istream& operator>> (std::istream& in, Data_t& date) {
 		std::cout << "\n\tEnter day of birth: ";
 		in >> date.day;
@@ -40,7 +39,6 @@ struct Student_t {
 	Data_t date_of_birth;
 	int phone_number;
 
-	bool operator== (const Student_t& st) const;
 	friend std::istream& operator>> (std::istream& in, Student_t& st) {
 		std::cout << "----------------------------------\n";
 		std::cout << "Entering data about a new student:";
@@ -73,10 +71,9 @@ struct Student_t {
 class StudentsGroup_t {
 private:
 	int current_size;
-	/*int step_of_increasing;*/
 	Student_t* group;
 
-	int find_student(const Student_t& st) const;
+	int find_student(const std::string surname) const;
 
 public:
 	StudentsGroup_t();
@@ -84,9 +81,9 @@ public:
 	StudentsGroup_t(const StudentsGroup_t& st_group);
 	~StudentsGroup_t();
 
-	void is_student_in_group(const Student_t& st) const;
+	void is_student_in_group(const std::string surname) const;
 	void add_student(const Student_t& st);
-	void delete_student(const Student_t& st);
+	void delete_student(const std::string surname);
 
 	friend std::ostream& operator<< (std::ostream& out, const StudentsGroup_t& gr) {
 		std::cout << "-----------  INFO OF ALL GROUP  -----------";
