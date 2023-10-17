@@ -11,8 +11,8 @@ int main() {
 	std::cin >> num_stud;
 	std::cout << std::endl;
 
-	Student_t st;
 	for (int i = 0; i < num_stud; i++) {
+		Student_t st;
 		std::cout << i + 1 << ". ";
 		
 		std::cin >> st;
@@ -24,16 +24,19 @@ int main() {
 
 	std::cout << "\n\n**************************************************\n";
 	
+
+	std::string surname;
+
 	// Check existing
-	std::cin >> st;
-	st_gr.is_student_in_group(st);
+	std::cin >> surname;
+	st_gr.is_student_in_group(surname);
 
 	std::cout << "\n\n**************************************************\n";
 
 	// Deleting sone student
-	std::cin >> st;
+	std::cin >> surname;
 	try {
-		st_gr.delete_student(st);
+		st_gr.delete_student(surname);
 		std::cout << st_gr;
 	}
 	catch (const char* exp) {
