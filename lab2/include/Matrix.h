@@ -49,7 +49,7 @@ public:
 		for (int i = 0; i < m.size; i++) {
 			for (int z = 0; z < i; z++) {
 				std::cout.width(5);
-				out << " ";
+				out << "0";
 			}
 
 			for (int j = 0; j < m.pVector[i].GetSize(); j++) {
@@ -64,55 +64,54 @@ public:
 };
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(int n) {
-	pVector = new TVector<ValueType>[n];
+TMatrix<ValueType>::TMatrix(int n) : TVector<TVector<ValueType>>(n) {
 	for (int i = 0; i < n; i++)
 		pVector[i] = TVector<ValueType>(n - i, i);
 }
 
 template <typename ValueType>
-TMatrix<ValueType>::TMatrix(const TMatrix& m) : TVector<TVector<ValueType>>(m) {}
+TMatrix<ValueType>::TMatrix(const TMatrix<ValueType>& m) : TVector<TVector<ValueType>>(m) {}
 
 template <typename ValueType>
 TMatrix<ValueType>::TMatrix(const TVector<TVector<ValueType>>& v) : TVector<TVector<ValueType>>(v) {}
 
 template <typename ValueType>
-int TMatrix<ValueType>::operator== (const TMatrix& m) const {
+int TMatrix<ValueType>::operator== (const TMatrix<ValueType>& m) const {
 	return TVector<TVector<ValueType>>::operator==(m);
 }
 
 template <typename ValueType>
-int TMatrix<ValueType>::operator!= (const TMatrix& m) const {
+int TMatrix<ValueType>::operator!= (const TMatrix<ValueType>& m) const {
 	return (*this == m);
 }
 
 template <typename ValueType>
-const TMatrix<ValueType>& TMatrix<ValueType>::operator= (const TMatrix& m) {
+const TMatrix<ValueType>& TMatrix<ValueType>::operator= (const TMatrix<ValueType>& m) {
 	return TVector<TVector<ValueType>>::operator=(m);
 }
 
 template <typename ValueType>
-TMatrix<ValueType> TMatrix<ValueType>::operator+ (const TMatrix& m) {
+TMatrix<ValueType> TMatrix<ValueType>::operator+ (const TMatrix<ValueType>& m) {
 	return TVector<TVector<ValueType>>::operator+(m);
 }
 
 template <typename ValueType>
-TMatrix<ValueType> TMatrix<ValueType>::operator- (const TMatrix& m) {
+TMatrix<ValueType> TMatrix<ValueType>::operator- (const TMatrix<ValueType>& m) {
 	return TVector<TVector<ValueType>>::operator-(m);
 }
 
 template <typename ValueType>
-TMatrix<ValueType> TMatrix<ValueType>::operator* (const TMatrix& m) {
+TMatrix<ValueType> TMatrix<ValueType>::operator* (const TMatrix<ValueType>& m) {
 	if (size != m.size)
 		throw std::exception("diff. sizes");
 
 	TMatrix<ValueType> res(size);
 
 	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size - i; j++) {
-			res[i][j] = 0;
-			for (int k = 0; k < j + 1 && k < size - i; k++) {
-				res.pVector[i][j] += (*this).pVector[i][k] * m.pVector[k][j - m.pVector[k].GetStartIndex()];
+		for (int j = i; j < size; j++) {
+			res[i][j - res.pVector[i].GetStartIndex()] = 0;
+			for (int k = i; k <= j; k++) {
+				res.pVector[i][j - res.pVector[i].GetStartIndex()] += this->pVector[i][k - this->pVector[i].GetStartIndex()] * m.pVector[k][j - m.pVector[k].GetStartIndex()];
 			}
 		}
 	}
